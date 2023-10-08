@@ -38,4 +38,4 @@ VALUES
 INSERT INTO USERS_ROLES (user_id, role_id)
 VALUES
     (1, 1),
-    (2, 2)
+    (2, 2);
