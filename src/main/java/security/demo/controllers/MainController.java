@@ -11,22 +11,22 @@ import java.security.Principal;
 public class MainController {
 
     @GetMapping("/unsecured")
-    public String unsecuredDate() {
-        return "unsecured date";
+    public String unsecuredData() {
+        return "Unsecured data";
     }
 
     @GetMapping("/secured")
-    public String securedDate() {
-        return "secured date";
+    public String securedData() {
+        return "Secured data";
     }
 
     @GetMapping("/admin")
-    public String adminDate() {
-        return "admin date";
+    public String adminData() {
+        return "Admin data";
     }
 
     @GetMapping("/info")
-    public String userDate(Principal principal) {
+    public String userData(Principal principal) {
         return principal.getName();
     }
 }

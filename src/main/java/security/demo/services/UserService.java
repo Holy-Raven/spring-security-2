@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import security.demo.repositories.RoleRepository;
 import security.demo.repositories.UserRepository;
-
 import security.demo.model.User;
 
 import java.util.List;
@@ -26,15 +25,13 @@ public class UserService implements UserDetailsService {
     @Override
     @Transactional
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-
         User user = findByUsername(username).orElseThrow(() -> new UsernameNotFoundException(
-                String.format("User %s not found", username)
+                String.format("Пользователь '%s' не найден", username)
         ));
-
         return new org.springframework.security.core.userdetails.User(
-               user.getUsername(),
-               user.getPassword(),
-               user.getRoles().stream().map(role -> new SimpleGrantedAuthority(role.getName())).collect(Collectors.toList())
+                user.getUsername(),
+                user.getPassword(),
+                user.getRoles().stream().map(role -> new SimpleGrantedAuthority(role.getName())).collect(Collectors.toList())
         );
     }
 

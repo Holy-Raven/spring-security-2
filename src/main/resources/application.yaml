@@ -3,13 +3,12 @@ server:
   servlet:
     context-path: /demo
 jwt:
-  secret: 984hg493gh0439rth0429uruj2309yh937gc763fe87t3f89723gf
-  lifetime: 30m
+  secret: 984hg493gh0439rthr0429uruj2309yh937gc763fe87t3f89723gf
+  lifetime: 10m
 spring:
   datasource:
     driver-class-name: org.h2.Driver
-    url: jdbc:h2:file:~/db/security
-#    url: jdbc:h2:file:.users;MODE=PostgresSQL
+    url: jdbc:h2:file:./db/users;MODE=PostgreSQL
     username: root
     password: root
   jpa:
@@ -22,3 +21,5 @@ spring:
       enabled: true
       settings:
         web-allow-others: false
+  main:
+    allow-circular-references: true

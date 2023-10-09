@@ -1,11 +1,12 @@
 package security.demo.dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data
-public class RegistrationUserDto {
+@AllArgsConstructor
+public class UserDto {
+    private Long id;
     private String username;
-    private String password;
-    private String confirmPassword;
     private String email;
 }
