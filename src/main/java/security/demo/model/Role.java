@@ -1,12 +1,18 @@
 package security.demo.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
-@Entity
 @Data
-@Table(name = "roles")
+@Entity
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+@Table(name = "roles", schema = "public")
 public class Role {
 
     @Id
@@ -14,6 +20,6 @@ public class Role {
     @Column(name = "id")
     private Integer id;
 
-    @Column(name = "name")
+    @Column(name = "name_role")
     private String name;
 }

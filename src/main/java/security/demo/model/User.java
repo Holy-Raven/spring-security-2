@@ -1,13 +1,15 @@
 package security.demo.model;
 
-import lombok.Data;
-
+import lombok.*;
 import javax.persistence.*;
 import java.util.Collection;
 
-@Entity
 @Data
-@Table(name = "users")
+@Entity
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+@Table(name = "users", schema = "public")
 public class User {
 
     @Id

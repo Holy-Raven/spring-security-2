@@ -1,6 +1,6 @@
 package security.demo.services;
 
-import lombok.RequiredArgsConstructor;
+import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -11,11 +11,14 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 import security.demo.dto.JwtRequest;
 import security.demo.dto.JwtResponse;
+import security.demo.dto.RegistrationUserDto;
+import security.demo.dto.UserDto;
 import security.demo.exceptions.AppError;
+import security.demo.model.User;
 import security.demo.util.JwtTokenUtils;
 
 @Service
-@RequiredArgsConstructor
+@AllArgsConstructor
 public class AuthService {
 
     private final UserService userService;
@@ -41,4 +44,21 @@ public class AuthService {
         String token = jwtTokenUtils.generateToken(userDetails);
         return ResponseEntity.ok(new JwtResponse(token));
     }
+
+
+    public ResponseEntity<?> createUser(@RequestBody RegistrationUserDto registrationUserDto) {
+        if (!registrationUserDto.getPassword().equals(registrationUserDto.getConfirmPassword())) {
+            return new ResponseEntity<>(new AppError(HttpStatus.BAD_REQUEST.value(),
+                    "пароли не совпадают"), HttpStatus.BAD_REQUEST);
+        }
+
+        if (userService.findByUsername(registrationUserDto.getUsername()).isPresent()) {
+            return new ResponseEntity<>(new AppError(HttpStatus.BAD_REQUEST.value(),
+                    "пользователь уже существует"), HttpStatus.BAD_REQUEST);
+        }
+
+        User u = userService.createNewUser(registrationUserDto);
+        return ResponseEntity.ok(new UserDto(u.getId(), u.getUsername(), u.getEmail()));
+    }
+
 }
